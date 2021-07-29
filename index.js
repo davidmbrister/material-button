@@ -28,7 +28,6 @@ for (i = 0; i < 10; i++) {
 
 console.log(foo.count);
 
-
 //https://www.w3schools.com/js/js_arrow_function.asp
 /* The difference between this in a arrow as opposed to a regular funcion
 is that this in an => will refer to the owner of the definition of the arrow function
@@ -185,12 +184,13 @@ var materialUI =
     border: "none",
     background: "#F85F73",
     color: "#FBE8D3",
-    boxShadow: "0 0 10px 0.5px rgba(transparent, 0)",
+    boxShadow: "10px 0.5px rgba(255,255,255, 0)",
     transition: "all 0.15s linear",
     cursor: "pointer",
-    pseudoRules: {"onmouseover": {"transform": "scale(0.98)"}}
+    pseudoRules: {"onmouseover": {"transform": "scale(0.98)", "boxShadow": "3px 3px 10px 0.5px rgba(255,255,0, .2)"}}
 }
 
+// This function looks pretty dumb
 StyledButton.addStyles = function(styles) {
     console.log(this)
 

@@ -1,0 +1,29 @@
+/* Button animations */
+@keyframes MUIripple {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(250);
+  }
+}
+.MUIripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.MUIcircle {
+  z-index: 10;
+  position: absolute;
+  border: 1px solid rgba(100, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: MUIripple 0.75s 1;
+  top: 50%;
+  left: 50%;
+}

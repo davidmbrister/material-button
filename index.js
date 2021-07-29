@@ -179,6 +179,7 @@ var StyledButton = Object.create( Button )
 
 var materialUI = 
 { width: "150px",
+    marginRight: "1em",
     position: "relative",
     height: "50px",
     border: "none",
@@ -258,18 +259,18 @@ ScriptedStyledButton.prepMUIButton = function(width, height, label){
         });   
     }
     // create a growing circle on the element 
-    this.elem.createRipple = function(y, x){
+    this.elem.createRipple = function(y, x, target){
         const ripple = `<div class="MUIcircle" style="top:${y}px;left:${x}px;"></div>`;
         console.log(x);
         const _ripple = ripple;
-        document.querySelector('.MUIripple').insertAdjacentHTML('beforeend', _ripple);
+        target.insertAdjacentHTML('beforeend', _ripple);
         setTimeout(() => document.querySelector('.MUIcircle').remove(), 720);
     }
     // trigger animation
     this.elem.onclick = function(e){
         const offset = this.getOffset(e.target);
         console.log("offset: " + offset)
-        this.createRipple(e.pageY - offset.top, e.pageX - offset.left);
+        this.createRipple(e.pageY - offset.top, e.pageX - offset.left, e.target);
       };
     // N.B.: (as below) a function inside a function doesn't retain the this ref and reverts to the Window/Global Object 
     (function(){console.log("Inside inside Button.setup" + this)}());
@@ -279,6 +280,12 @@ ScriptedStyledButton.prepMUIButton = function(width, height, label){
 var body = document.querySelector("body");
 //var btn1 = Object.create( Button )
 //btn1.setup(125, 30, "Hello")
+var btn3 = Object.create( ScriptedStyledButton )
+btn3.prepMUIButton(200, 50, "Hello")
+//btn1.build(body);
+btn3.build(body);
+btn3.addStyles(materialUI);
+
 var btn2 = Object.create( ScriptedStyledButton )
 btn2.prepMUIButton(157, 78, "World")
 //btn1.build(body);

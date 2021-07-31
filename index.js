@@ -196,8 +196,10 @@ StyledButton.addStyles = function(styles) {
 
     // WHY SHOULD I HAVE TO DO THIS (below) 
     // TODO check if the book explains this
+    // UPDATE: forEach allows passing of a context object as the final argument
+    // thereby obviating the following commented line
 
-    let myThis = this;
+    // let myThis = this;
     Object.keys(styles).forEach(function(key,index) {
         // key: the name of the object key
         
@@ -207,16 +209,16 @@ StyledButton.addStyles = function(styles) {
                     let evt = styles.pseudoRules[pseudoruleKeys[i]];
                     switch (pseudoruleKeys[i]) {
                         // &:hover pseudo rule emulation with javascript -- this is awful
-                        case "onmouseover" : myThis.elem.onmouseover = function(){
+                        case "onmouseover" : this.elem.onmouseover = function(){
                             Object.keys(evt).forEach(function(key,index) {
-                                myThis.elem.style[`${key}`] = evt[`${key}`];
+                                this.elem.style[`${key}`] = evt[`${key}`];
                             })
-                            myThis.elem.onmouseout = function(){
+                            this.elem.onmouseout = function(){
                                 Object.keys(evt).forEach(function(key,index) {
                                     if (Object.keys(styles).includes(evt[`${key}`])) {
-                                        myThis.elem.style[`${key}`] = styles[evt[`${key}`]]
+                                        this.elem.style[`${key}`] = styles[evt[`${key}`]]
                                     } else {
-                                        myThis.elem.style[`${key}`] = '';
+                                        this.elem.style[`${key}`] = '';
                                     }
                                 })
                             }
@@ -225,10 +227,10 @@ StyledButton.addStyles = function(styles) {
                 }
                 // index: the ordinal position of the key within the object 
             } else {
-                myThis.elem.style[`${key}`] = styles[key]
+                this.elem.style[`${key}`] = styles[key]
             }
             
-    })
+    }, this)
 }
 
 var ScriptedStyledButton = Object.create( StyledButton )
